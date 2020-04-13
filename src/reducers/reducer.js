@@ -23,18 +23,18 @@ import { ADD_FEATURE, REMOVE_FEATURE } from '../actions/index'
 export const reducer = (state = initialState, action) => {
 
    let newState 
+  
     switch (action.type) {
 
         case ADD_FEATURE: 
 
-    
             newState = {...state, car: {
                 price: state.car.price + action.payload.price,
                 features: [...state.car.features, action.payload],
                 image: state.car.image,
                 name: state.car.name
-            }}
-            newState.car.features.filter(item => {return item.id !== action.payload.id})
+            }, additionalFeatures: state.additionalFeatures.filter(item => item.id !== action.payload.id)}
+            
             console.log(newState)
             return newState
         
@@ -46,7 +46,7 @@ export const reducer = (state = initialState, action) => {
                 image: state.car.image,
                 features: state.car.features.filter(item => { return item !== action.payload}),
                 name: state.car.name
-            }}
+            }, additionalFeatures: [...state.additionalFeatures, action.payload]}
             console.log(newState)
             return newState
 
